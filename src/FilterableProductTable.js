@@ -1,6 +1,7 @@
 import React from 'react'
 import ProductTable from './ProductTable'
 import SearchBar from './SearchBar'
+import products from './products'
 class FilterableProductTable extends React.Component{
 	constructor(){
 		super()
@@ -28,7 +29,7 @@ class FilterableProductTable extends React.Component{
 		return <div>
 		<SearchBar text={this.state.filterText}
 		 stock={this.state.inStockOnly} onChange={this.handleChange}/>
-		<ProductTable text={this.state.filterText}
+		<ProductTable text={this.state.filterText} product={products}
 		 stock={this.state.inStockOnly} onChange={this.handleChange}/>
 		</div>
 	}

@@ -1,13 +1,10 @@
 import React from 'react'
 function ProductRow(props){
-	return <table>
-	<tbody>
-	<tr>
+	return <tr>
 	<td>{props.name}</td>
 	<td>{props.price}</td>
 	</tr>
-	</tbody>
-	</table>
+	
 	
 }
 export default ProductRow

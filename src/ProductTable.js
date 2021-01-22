@@ -1,115 +1,39 @@
 import React from 'react'
-import products from './products'
 import ProductCategoryRow from './ProductCategoryRow'
 import ProductRow from './ProductRow'
 
 class ProductTable extends React.Component{
 	render(){
-		const text=this.props.text;
-		const tick=this.props.stock;
-		const product=products
+		
+		const products=this.props.product
+		const list=[]
+		let lastCategory=null
+		const text=this.props.text
+		const stock=this.props.stock
+		const ProductFilter=products.map(function(item){
+			if (item.name.indexOf(text)===-1) {
+				return;
+			}
+			if(stock && !item.stocked){ return }
 
-		const productCategory=product.map(function(objectinlist){
-			return <ProductCategoryRow category={objectinlist.category}/>
-		})
-		const productSports=product.map(function(objectinlist){
-			if (tick===false) {
-				if (text==='') {
-				if(objectinlist.category==='Sporting Goods') return <ProductRow 
-				name={objectinlist.name} price={objectinlist.price}
-			/>
+			if (item.category!==lastCategory) {
+				list.push(<ProductCategoryRow key={item.category} category={item.category} />);
 			}
-			if(text===objectinlist.name && objectinlist.category==='Sporting Goods'){
-			 return <ProductRow 
-				name={objectinlist.name} price={objectinlist.price}
-			/>}
-			}
-			if (text==='') {
-				if(objectinlist.category==='Sporting Goods' &&
-				 objectinlist.stocked===true) return <ProductRow 
-				name={objectinlist.name} price={objectinlist.price}
-			/>
-			}
-			if(objectinlist.name===text && objectinlist.category==='Sporting Goods'
-				&& objectinlist.stocked===true){
-			 return <ProductRow 
-				name={objectinlist.name} price={objectinlist.price}
-			/>}
-			
-		})
-		/*const FilterProductSports=product.map(function(objectinlist){
-			if(objectinlist.name===text && objectinlist.category==='Sporting Goods')
-			 return <ProductRow 
-				name={objectinlist.name} price={objectinlist.price}
-
-			/>
-		})*/
-		const productElectronics=product.map(function(objectinlist){
-			if (tick===false) {
-				if (text==='') {
-				if(objectinlist.category==='Electronics') return <ProductRow 
-				name={objectinlist.name} price={objectinlist.price}
-			/>
-			}
-			if(objectinlist.name===text && objectinlist.category==='Electronics'){
-			 return <ProductRow 
-				name={objectinlist.name} price={objectinlist.price}
-			/>}
-			}
-			if (text==='') {
-				if(objectinlist.category==='Electronics' &&
-				 objectinlist.stocked===true) return <ProductRow 
-				name={objectinlist.name} price={objectinlist.price}
-			/>
-			}
-			if(objectinlist.name===text && objectinlist.category==='Electronics'
-				&& objectinlist.stocked===true){
-			 return <ProductRow 
-				name={objectinlist.name} price={objectinlist.price}
-			/>}
-			
-		})
-		const productCrockery=product.map(function(objectinlist){
-			if (tick===false) {
-				if (text==='') {
-				if(objectinlist.category==='Crockery') return <ProductRow 
-				name={objectinlist.name} price={objectinlist.price}
-			/>
-			}
-			if(objectinlist.name===text && objectinlist.category==='Crockery'){
-			 return <ProductRow 
-				name={objectinlist.name} price={objectinlist.price}
-			/>}
-			}
-			if (text==='') {
-				if(objectinlist.category==='Crockery' &&
-				 objectinlist.stocked===true) return <ProductRow 
-				name={objectinlist.name} price={objectinlist.price}
-			/>
-			}
-			if(objectinlist.name===text && objectinlist.category==='Crockery'
-				&& objectinlist.stocked===true){
-			 return <ProductRow 
-				name={objectinlist.name} price={objectinlist.price}
-			/>}
-		})
-
-
+			list.push(<ProductRow key={item.name} name={item.name} price={item.price} />);
+			lastCategory=item.category;
+		});
 		return <div>
 		<table>
-		<tbody>
+		<thead>
 			<tr>
 				<td>Name</td>
 				<td>Price</td>
 			</tr>
-			</tbody>
+		</thead>
+		<tbody>
+		{list}
+		</tbody>
 		</table>
-		<ProductCategoryRow category='Sporting Goods'/>
-		{productSports}
-		<ProductCategoryRow category='Electronics'/>
-		{productElectronics}
-		<ProductCategoryRow category='Crockery'/>
-		{productCrockery}
 		</div>
 	}
 }
