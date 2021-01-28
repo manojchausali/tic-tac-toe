@@ -10,7 +10,7 @@ class ProductTable extends React.Component{
 		let lastCategory=null
 		const text=this.props.text
 		const stock=this.props.stock
-		const ProductFilter=products.map(function(item){
+		const ProductFilter=products.forEach(function(item){
 			if (item.name.indexOf(text)===-1) {
 				return;
 			}
@@ -19,7 +19,7 @@ class ProductTable extends React.Component{
 			if (item.category!==lastCategory) {
 				list.push(<ProductCategoryRow key={item.category} category={item.category} />);
 			}
-			list.push(<ProductRow key={item.name} name={item.name} price={item.price} />);
+			list.push(<ProductRow key={item.name} product={item} />);
 			lastCategory=item.category;
 		});
 		return <div>
